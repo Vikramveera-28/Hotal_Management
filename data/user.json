@@ -1,0 +1,21 @@
+{
+  "user": [
+    {
+      "id": "1",
+      "name": "VikramKumar",
+      "password": "Vikramveera28"
+    },
+    {
+      "id": "2",
+      "name": "Vicky",
+      "password": "Vicky2001"
+    }
+  ],
+  "userLogin": [
+    {
+      "id": "1",
+      "name": "Vicky",
+      "password": "Vicky2001"
+    }
+  ]
+}
