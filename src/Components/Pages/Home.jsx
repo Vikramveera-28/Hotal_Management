@@ -1,16 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import '../../App.css';
 import '../../Bootsrap/css/bootstrap.min.css';
 
 export const Home = ({ userLoginData, game, restaurant, laundary }) => {
     const userName = userLoginData[0]?.name;
-
-    // Helper function to get unique values from an array of objects by key
-    const getUniqueValues = (list, key) => [...new Set(list.map(item => item[key]))];
-
-    // Helper function to sum values from an array of objects by key
-    const sumValues = (list, key) => list.reduce((acc, item) => acc + item[key], 0);
-
+    
     // Helper function to count occurrences of specific items in a list
     const countItems = (list, key, value) => list.filter(item => item[key] === value).length;
 
@@ -18,11 +12,6 @@ export const Home = ({ userLoginData, game, restaurant, laundary }) => {
     const userGameList = game.filter(user => user.user === userName);
     const userRestaurantList = restaurant.filter(user => user.user === userName);
     const userLaundaryList = laundary.filter(user => user.user === userName);
-
-    // Get unique names for each category
-    const gameNameList = getUniqueValues(userGameList, 'gname');
-    const restaurantNameList = getUniqueValues(userRestaurantList, 'ritem');
-    const laundaryNameList = getUniqueValues(userLaundaryList, 'litem');
 
     // Get unique game, restaurant, and laundry price objects
     const uniqueGamePrice = userGameList
@@ -48,31 +37,6 @@ export const Home = ({ userLoginData, game, restaurant, laundary }) => {
                 t.litem === value.litem && t.lrate === value.lrate
             ))
         );
-
-    // Sum of rates for each category
-    const SumGame = sumValues(userGameList, 'grate');
-    const SumRestaurate = sumValues(userRestaurantList, 'rrate');
-    const SumLaundary = sumValues(userLaundaryList, 'lrate');
-
-    // Count specific games, restaurants, and laundry items
-    const totalGolf = countItems(userGameList, 'gname', "Golf");
-    const totalTennie = countItems(userGameList, 'gname', "Tennies");
-    const totalPoolBall = countItems(userGameList, 'gname', "Pool Ball");
-    const totalIndoorGames = countItems(userGameList, 'gname', "Indoor Games");
-    const totalVideoGames = countItems(userGameList, 'gname', "Video Games");
-
-    const totalBiriyani = countItems(userRestaurantList, 'rname', "Biriyani");
-    const totalChickenRice = countItems(userRestaurantList, 'rname', "Chicken Rice");
-    const totalMeals = countItems(userRestaurantList, 'rname', "Meals");
-    const totalTandoori = countItems(userRestaurantList, 'rname', "Tandoori");
-    const totalCoolDrinks = countItems(userRestaurantList, 'rname', "Cool Drinks");
-
-    const totalShirt = countItems(userLaundaryList, 'litem', "Shirt");
-    const totalPants = countItems(userLaundaryList, 'litem', "Pants");
-    const totalJeans = countItems(userLaundaryList, 'litem', "Jeans");
-    const totalBedCloth = countItems(userLaundaryList, 'litem', "Bed Cloth");
-    const totalGloes = countItems(userLaundaryList, 'litem', "Gloes");
-
     // Calculate total price for restaurant items
     const totalRestaurantCost = uniqueRestaurantPrice.reduce((total, item) => {
         const quantity = countItems(userRestaurantList, 'ritem', item.ritem);

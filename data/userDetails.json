@@ -203,6 +203,66 @@
       "user": "Vicky",
       "gname": "Video Games",
       "grate": 150
+    },
+    {
+      "id": 43,
+      "user": "VikramKumar",
+      "gname": "Golf",
+      "grate": 500
+    },
+    {
+      "id": 44,
+      "user": "VikramKumar",
+      "gname": "Tennies",
+      "grate": 200
+    },
+    {
+      "id": 45,
+      "user": "VikramKumar",
+      "gname": "Pool Ball",
+      "grate": 300
+    },
+    {
+      "id": 46,
+      "user": "VikramKumar",
+      "gname": "Indoor Games",
+      "grate": 250
+    },
+    {
+      "id": 47,
+      "user": "VikramKumar",
+      "gname": "Indoor Games",
+      "grate": 250
+    },
+    {
+      "id": 48,
+      "user": "VikramKumar",
+      "gname": "Video Games",
+      "grate": 150
+    },
+    {
+      "id": 49,
+      "user": "VikramKumar",
+      "gname": "Video Games",
+      "grate": 150
+    },
+    {
+      "id": 50,
+      "user": "VikramKumar",
+      "gname": "Video Games",
+      "grate": 150
+    },
+    {
+      "id": 51,
+      "user": "VikramKumar",
+      "gname": "Video Games",
+      "grate": 150
+    },
+    {
+      "id": 52,
+      "user": "VikramKumar",
+      "gname": "Video Games",
+      "grate": 150
     }
   ],
   "restaurant": [
@@ -295,6 +355,24 @@
       "user": "Vicky",
       "ritem": "Cool Drinks",
       "rrate": 110
+    },
+    {
+      "id": 25,
+      "user": "VikramKumar",
+      "ritem": "Biriyani",
+      "rrate": 150
+    },
+    {
+      "id": 26,
+      "user": "VikramKumar",
+      "ritem": "Chicken Rice",
+      "rrate": 110
+    },
+    {
+      "id": 27,
+      "user": "VikramKumar",
+      "ritem": "Cool Drinks",
+      "rrate": 110
     }
   ],
   "laundary": [
@@ -381,6 +459,42 @@
       "user": "Vicky",
       "litem": "Pants",
       "lrate": 20
+    },
+    {
+      "id": 21,
+      "user": "VikramKumar",
+      "litem": "Shirt",
+      "lrate": 15
+    },
+    {
+      "id": 22,
+      "user": "VikramKumar",
+      "litem": "Pants",
+      "lrate": 20
+    },
+    {
+      "id": 23,
+      "user": "VikramKumar",
+      "litem": "Jeans",
+      "lrate": 30
+    },
+    {
+      "id": 24,
+      "user": "VikramKumar",
+      "litem": "Jeans",
+      "lrate": 30
+    },
+    {
+      "id": 25,
+      "user": "VikramKumar",
+      "litem": "Jeans",
+      "lrate": 30
+    },
+    {
+      "id": 26,
+      "user": "VikramKumar",
+      "litem": "Bed Cloth",
+      "lrate": 50
     }
   ]
 }

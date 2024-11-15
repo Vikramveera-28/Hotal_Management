@@ -1,4 +1,4 @@
-import { Route, Routes, BrowserRouter, useNavigate } from 'react-router-dom';
+import { Route, Routes, useNavigate } from 'react-router-dom';
 import adminApi from './api/adminUrl';
 import userApi from './api/userUrl';
 import gameApi from './api/gamesUrl';
@@ -150,8 +150,6 @@ function App() {
           try {
             const response = await userApi.get('/userLogin');
             setUserLoginData(response.data);
-            const userName = userLoginData[0]?.name;
-            const userDetailsArray = user.filter(user => user.name === userName)
           } catch (err) {
             console.log('Error fetching user login data:', err.message);
           }
