@@ -19,9 +19,9 @@ import localData from './LocalStorage/user';
 function App() {
   const navigate = useNavigate();
   // All Admins
-  const [admin, setAdmin] = useState(JSON.parse(localStorage.getItem("admin")));
+  const [admin, setAdmin] = useState([]);
   // All Users
-  const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")));
+  const [user, setUser] = useState([]);
   // Admin Login
   const [adminName, setAdminName] = useState('');
   const [adminPassword, setAdminPassword] = useState('');
@@ -33,7 +33,7 @@ function App() {
   const [registerPassword, setRegisterPassword] = useState('')
   // User data
   // const [userId, setUserId] = useState("")
-  const [userLoginData, setUserLoginData] = useState(JSON.parse(localStorage.getItem("userLogin")));
+  const [userLoginData, setUserLoginData] = useState([]);
   // User Games
   const [game, setGame] = useState([]);
   // User Restaurant
@@ -43,55 +43,58 @@ function App() {
   
   
   // get the information in api and store
-  // useEffect(() => {
-  //   const fetchAdmin = async () => {
-  //     try {
-  //       const response = await adminApi.get('/admin');
-  //       setAdmin(response.data);
-  //     } catch (err) {
-  //       console.log(err.message);
-  //     }
-  //   }
-  //   const fetchUser = async () => {
-  //     try {
-  //       const response = await userApi.get('/user');
-  //       setUser(response.data);
-  //     } catch (err) {
-  //       console.log(err.message);
-  //     }
-  //   }
-  //   const fetchGame = async () => {
-  //     try {
-  //       const response = await gameApi.get('/game');
-  //       setGame(response.data);
-  //     } catch (err) {
-  //       console.log(err.message);
-  //     }
-  //   }
-  //   const fetchRestaurant = async () => {
-  //     try {
-  //       const response = await gameApi.get('/restaurant');
-  //       setRestaurant(response.data);
-  //     } catch (err) {
-  //       console.log(err.message);
-  //     }
-  //   }
-  //   const fetchLaundary = async () => {
-  //     try {
-  //       const response = await gameApi.get('/laundary');
-  //       setLaundary(response.data);
-  //     } catch (err) {
-  //       console.log(err.message);
-  //     }
-  //   }
+  useEffect(() => {
+    const fetchAdmin = async () => {
+      try {
+        const response = await adminApi.get('/admin');
+        setAdmin(response.data);
+      } catch (err) {
+        console.log(err.message);
+      }
+    }
+    const fetchUser = async () => {
+      try {
+        const response = await userApi.get('/user');
+        setUser(response.data);
+      } catch (err) {
+        console.log(err.message);
+      }
+    }
+    const fetchGame = async () => {
+      try {
+        const response = await gameApi.get('/game');
+        setGame(response.data);
+      } catch (err) {
+        console.log(err.message);
+      }
+    }
+    const fetchRestaurant = async () => {
+      try {
+        const response = await gameApi.get('/restaurant');
+        setRestaurant(response.data);
+      } catch (err) {
+        console.log(err.message);
+      }
+    }
+    const fetchLaundary = async () => {
+      try {
+        const response = await gameApi.get('/laundary');
+        setLaundary(response.data);
+      } catch (err) {
+        console.log(err.message);
+      }
+    }
     
-  //   fetchUser();
-  //   fetchAdmin();
-  //   fetchGame();
-  //   fetchRestaurant();
-  //   fetchLaundary();
-  // }, []);
+    fetchUser();
+    fetchAdmin();
+    fetchGame();
+    fetchRestaurant();
+    fetchLaundary();
+  }, []);
 
+  useEffect(() => {
+    console.log(userLoginData[0]);
+  }, [admin])
 
   // Admin Login Function
   const adminLogin = (e) => {
@@ -101,6 +104,7 @@ function App() {
     console.log(Name);
     console.log(Password);
     if (Name[0] === adminName && Password[0] === adminPassword) {
+      alert("Sucsess")
       navigate('/dashboard');
     } else {
       console.log("Invalid login");
@@ -117,10 +121,12 @@ function App() {
           const id = "1";
           const userName = userLoginName;
           const password = userLoginPassword;
-          const useUser = [{id, name: userName, password}];
-          // const response = await userApi.put(`/userLogin/${id}`, useUser);
-          setUserLoginData(useUser)
-          localStorage.setItem("userLogin", JSON.stringify(useUser));
+          const useUser = {id, name: userName, password}
+          const response = await userApi.put(`/userLogin/${id}`, useUser);
+          console.log(response);
+          console.log(response.data);
+          setUserLoginData(response.data)
+          console.log(userLoginData);
         } catch (err) {
           console.log(err.message);
         }
@@ -138,25 +144,24 @@ function App() {
       const userName = registerName;
       const password = registerPassword;
       const newList = {id:String(id), name:userName, password:password}
-      // const response = await userApi.post('/user', newList);
-      const newUser = [...user, newList]
+      const response = await userApi.post('/user', newList);
+      const newUser = [...user, response.data]
       setUser(newUser);
-      localStorage.setItem("user", JSON.stringify(newUser))
     }
 
 
   // Get user informations when user Logged in
-    // useEffect(() => {
-    //     const fetchUserDetails = async () => {
-    //       try {
-    //         const response = await userApi.get('/userLogin');
-    //         setUserLoginData(response.data);
-    //       } catch (err) {
-    //         console.log('Error fetching user login data:', err.message);
-    //       }
-    //     };
-    //     fetchUserDetails();
-    //   }, [userId]);
+    useEffect(() => {
+        const fetchUserDetails = async () => {
+          try {
+            const response = await userApi.get('/userLogin');
+            setUserLoginData(response.data);
+          } catch (err) {
+            console.log('Error fetching user login data:', err.message);
+          }
+        };
+        fetchUserDetails();
+      }, [userLoginData]);
 
 
     // Add game
@@ -166,23 +171,23 @@ function App() {
       const Name = gName;
       const Rate = gRate;
       const newObj = {id:Id, user:User, gname:Name, grate:Rate}
-      // const response = await gameApi.post('/game', newObj);
-      const newGame = [...game, newObj];
+      const response = await gameApi.post('/game', newObj);
+      const newGame = [...game, response.data];
       setGame(newGame)
-      localStorage.setItem("game", JSON.stringify(newGame))
     }
 
     // Add restaurant
     const restaurantList = async (rName, rRate) => {
       const Id = restaurant.length ? Number(restaurant[restaurant.length-1].id)+1 : 1;      
       const User = userLoginData[0]?.name;
+      console.log(userLoginData);
+      console.log(User);
       const Name = rName;
       const Rate = rRate;
       const newObj = {id:Id, user:User, ritem:Name, rrate:Rate}
-      // const response = await gameApi.post('/restaurant', newObj);
-      const newRestaurant = [...restaurant, newObj];
+      const response = await gameApi.post('/restaurant', newObj);
+      const newRestaurant = [...restaurant, response.data];
       setRestaurant(newRestaurant)
-      localStorage.setItem("restaurant", JSON.stringify(newRestaurant))
     }
 
     // Add Laundary
@@ -192,14 +197,9 @@ function App() {
       const Name = lName;
       const Rate = lRate;
       const newObj = {id:Id, user:User, litem:Name, lrate:Rate}
-      // // Api
-      // const response = await gameApi.post('/laundary', newObj);
-      // const newLaundary = [...laundary, response.data];
-      // setLaundary(newLaundary)
-      // //localStorage
-      const newLaundary = [...laundary, newObj];
+      const response = await gameApi.post('/laundary', newObj);
+      const newLaundary = [...laundary, response.data];
       setLaundary(newLaundary)
-      localStorage.setItem("laundary", JSON.stringify(newLaundary))
     }
   return (
     <div>
