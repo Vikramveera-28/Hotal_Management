@@ -14,7 +14,6 @@ import { Laundary } from './Components/Pages/Laundary';
 import { Restaurant } from './Components/Pages/Restaurant';
 import { NotFound } from './Components/Pages/NotFound';
 import { UserNavbar } from './Components/Features.jsx/UserNavbar';
-import localData from './LocalStorage/user';
 
 function App() {
   const navigate = useNavigate();
@@ -91,10 +90,6 @@ function App() {
     fetchRestaurant();
     fetchLaundary();
   }, []);
-
-  useEffect(() => {
-    console.log(userLoginData[0]);
-  }, [admin])
 
   // Admin Login Function
   const adminLogin = (e) => {

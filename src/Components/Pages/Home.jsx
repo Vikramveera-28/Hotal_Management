@@ -1,10 +1,10 @@
-import React, { useEffect } from "react";
+import React from "react";
 import '../../App.css';
 import '../../Bootsrap/css/bootstrap.min.css';
 
 export const Home = ({ userLoginData, game, restaurant, laundary }) => {
     const userName = userLoginData[0]?.name;
-    
+
     // Helper function to count occurrences of specific items in a list
     const countItems = (list, key, value) => list.filter(item => item[key] === value).length;
 
