@@ -142,6 +142,8 @@ function App() {
       const response = await userApi.post('/user', newList);
       const newUser = [...user, response.data]
       setUser(newUser);
+      registerName("")
+      registerPassword("")
       navigate("/")
     }
 
