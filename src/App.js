@@ -3,7 +3,7 @@ import api from './api/apiUrl';
 import { useEffect, useState } from 'react';
 import { Admin } from './Components/LogInPage/Admin';
 import { Login } from './Components/LogInPage/Login';
-import { NavbarLogin } from './Components/Features/NavbarLogin';
+import { NavbarLogin } from './Components/Features.jsx/NavbarLogin';
 import { Dashboard } from './Components/Pages/Dashboard';
 import { Register } from './Components/LogInPage/Register';
 import { Bill } from './Components/Pages/Bill';
@@ -11,7 +11,7 @@ import { Games } from './Components/Pages/Games';
 import { Laundary } from './Components/Pages/Laundary';
 import { Restaurant } from './Components/Pages/Restaurant';
 import { NotFound } from './Components/Pages/NotFound';
-import { UserNavbar } from './Components/Features/UserNavbar';
+import { UserNavbar } from './Components/Features.jsx/UserNavbar';
 import { Home } from './Components/Pages/Home';
 
 function App() {
