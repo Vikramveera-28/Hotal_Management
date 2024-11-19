@@ -30,3 +30,6 @@ main{
 .text-shadow{
   text-shadow: 0px 0px 10px black;
 }
+.NavBar{
+  z-index: 2;
+}
