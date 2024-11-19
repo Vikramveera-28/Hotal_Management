@@ -1,4 +1,32 @@
 main{
   width: 100vw;
-  /* height: 100vh; */
+  min-height: 100vh;
+  overflow: hidden;
+}
+.table-height{
+  height: 60vh;
+  overflow: scroll;
+}
+.form-page{
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+
+}
+.login-page{
+  background-image: url(./Images/fusion-10.jfif);
+}
+.register-page{
+  background-image: url(./Images/fusion-10.jfif);
+}
+.admin-page{
+  background-image: url(./Images/fusion-10.jfif);
+}
+.bg-form{
+  backdrop-filter: blur(20px);
+  box-shadow: 2px 5px 10px whitesmoke;
+}
+.text-shadow{
+  text-shadow: 0px 0px 10px black;
 }

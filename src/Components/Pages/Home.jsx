@@ -1,222 +1,119 @@
 import React from "react";
 import '../../App.css';
-import '../../Bootsrap/css/bootstrap.min.css';
+import BiriyaniImage from '../../Images/biriyani.jpg';
+import ChickenRiceImage from '../../Images/chickenrice.jpg';
+import CoolDrinksImage from '../../Images/cooldrinks.jpg';
+import MealsImage from '../../Images/meals.jpg';
+import TandooriImage from '../../Images/tandoori.jpg';
+import BedClothImage from '../../Images/bedCloth.jpg';
+import JeansImage from '../../Images/jeans.jpg';
+import PantsImage from '../../Images/pants.jpg';
+import ShirtImage from '../../Images/shirt.jpg';
+import GloesImage from '../../Images/Gloes.png';
+import GolfImage from '../../Images/Golf.png';
+import PoolBallImage from '../../Images/Poolball.jpg';
+import TenniesImage from '../../Images/Tennies.jpg';
+import IndoorImage from '../../Images/indoor.jpg';
+import VideoImage from '../../Images/videoGame.jpg';
 
-export const Home = ({ userLoginData, game, restaurant, laundary }) => {
-    const userName = userLoginData[0]?.name;
-
-    // Helper function to count occurrences of specific items in a list
-    const countItems = (list, key, value) => list.filter(item => item[key] === value).length;
-
-    // Filter the lists based on the user name
-    const userGameList = game.filter(user => user.user === userName);
-    const userRestaurantList = restaurant.filter(user => user.user === userName);
-    const userLaundaryList = laundary.filter(user => user.user === userName);
-
-    // Get unique game, restaurant, and laundry price objects
-    const uniqueGamePrice = userGameList
-        .map(item => ({ gname: item.gname, grate: item.grate })) // Map to {gname, grate}
-        .filter((value, index, self) =>
-            index === self.findIndex((t) => (
-                t.gname === value.gname && t.grate === value.grate
-            ))
-        );
-
-    const uniqueRestaurantPrice = userRestaurantList
-        .map(item => ({ ritem: item.ritem, rrate: item.rrate })) // Map to {ritem, rrate}
-        .filter((value, index, self) =>
-            index === self.findIndex((t) => (
-                t.ritem === value.ritem && t.rrate === value.rrate
-            ))
-        );
-
-    const uniqueLaundaryPrice = userLaundaryList
-        .map(item => ({ litem: item.litem, lrate: item.lrate })) // Map to {litem, lrate}
-        .filter((value, index, self) =>
-            index === self.findIndex((t) => (
-                t.litem === value.litem && t.lrate === value.lrate
-            ))
-        );
-    // Calculate total price for restaurant items
-    const totalRestaurantCost = uniqueRestaurantPrice.reduce((total, item) => {
-        const quantity = countItems(userRestaurantList, 'ritem', item.ritem);
-        return total + (quantity * item.rrate);
-    }, 0);  // Start from 0
-    // Calculate total price for laundary items
-    const totalLaundaryCost = uniqueLaundaryPrice.reduce((total, item) => {
-        const quantity = countItems(userLaundaryList, 'litem', item.litem);
-        return total + (quantity * item.lrate);
-    }, 0);  // Start from 0
-    // Calculate total price for laundary items
-    const totalGameCost = uniqueGamePrice.reduce((total, item) => {
-        const quantity = countItems(userGameList, 'gname', item.gname);
-        return total + (quantity * item.grate);
-    }, 0);  // Start from 0
-
-    const roomRent = 5000;
-    const roomService = 500;
-    const gst = 300;
-
-    const totalBill = roomRent + totalRestaurantCost + totalLaundaryCost + totalGameCost + roomService + gst
-
-    return (
+export const Home = ({userLoginData, game, restaurant, laundary, deleteRestaurantItem, deleteLaundaryItem, deleteGameItem}) => {
+    const userName = userLoginData[0]?.name
+    const userRestaurantList = restaurant.filter(item => item.user === userName)
+    const userLaundaryList = laundary.filter(item => item.user === userName)
+    const userGameList = game.filter(item => item.user === userName)
+    return(
         <main className="container">
-            <h3 className="text-secondary border-bottom border-2 border-primary-subtle w-100 pb-2 mt-3 ps-2">{userName}'s Page</h3>
-
-            <div className="mt-5">
-                <h2 className="text-dark my-2">Restaurant</h2>
-                <table className="table table-hover">
+            <h3 className="text-secondary fw-bold border-bottom border-secondary p-2">{userName}</h3>
+            <h3 className="text-dark fw-bold p-2 mt-3">Restaurant: </h3>
+            <div className="table-responsive table-height">
+                <table className="table table-hover table-bordered table-height">
                     <thead className="table-dark">
                         <tr>
                             <th>Sl. No</th>
-                            <th>Item Name</th>
-                            <th>Quantity</th>
+                            <th>Items</th>
                             <th>Rate</th>
-                            <th>Total</th>
+                            <th>Delete</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {/* Render Restaurant Items */}
-                        {uniqueRestaurantPrice.map((item, index) => {
-                            const quantity = countItems(userRestaurantList, 'ritem', item.ritem);
-                            const total = quantity * item.rrate;
-                            return (
-                                <tr key={index}>
-                                    <td>{index + 1}</td>
-                                    <td>{item.ritem}</td>
-                                    <td>{quantity}</td>
-                                    <td>{item.rrate}</td>
-                                    <td>{total}</td>
-                                </tr>
-                            );
-                        })}
+                        {userRestaurantList.map((item, index) => (
+                            <tr key={index} style={{height: '20px'}}>
+                                <td>{index+1}</td>
+                                <td className="d-flex justify-content-center align-items-center">{
+                                    item.ritem === "Biriyani" ? <img width="60px" src={BiriyaniImage}/>
+                                    : item.ritem === "Chicken Rice" ? <img width="60px" src={ChickenRiceImage}/>
+                                    : item.ritem === "Meals" ? <img width="60px" src={MealsImage}/>
+                                    : item.ritem === "Tandoori" ? <img width="60px" src={TandooriImage}/>
+                                    : item.ritem === "Cool Drinks" ? <img width="60px" src={CoolDrinksImage}/>
+                                    : item.ritem}
+                                </td>
+                                <td><span className="fw-bold">{item.rrate}</span></td>
+                                <td><button className="btn btn-danger w-100" onClick={() => deleteRestaurantItem(item.id)}>Delete</button></td>
+                            </tr>
+                        ))}
                     </tbody>
-                    <tfoot className="table-secondary">
-                        <tr>
-                            <td colSpan="4" className="text-end"><strong>Total:</strong></td>
-                            <td><strong>{totalRestaurantCost}</strong></td>
-                        </tr>
-                    </tfoot>
                 </table>
-                <h2 className="text-dark my-2">Laundary</h2>
-                <table className="table table-hover">
+            </div>
+            <h3 className="text-dark fw-bold p-2 mt-3">Laundary: </h3>
+            <div className="table-responsive table-height">
+                <table className="table table-hover table-bordered table-height">
                     <thead className="table-dark">
                         <tr>
                             <th>Sl. No</th>
-                            <th>Item Name</th>
-                            <th>Quantity</th>
+                            <th>Items</th>
                             <th>Rate</th>
-                            <th>Total</th>
+                            <th>Delete</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {/* Render Restaurant Items */}
-                        {uniqueLaundaryPrice.map((item, index) => {
-                            const quantity = countItems(userLaundaryList, 'litem', item.litem);
-                            const total = quantity * item.lrate;
-                            return (
-                                <tr key={index}>
-                                    <td>{index + 1}</td>
-                                    <td>{item.litem}</td>
-                                    <td>{quantity}</td>
-                                    <td>{item.lrate}</td>
-                                    <td>{total}</td>
-                                </tr>
-                            );
-                        })}
+                        {userLaundaryList.map((item, index) => (
+                            <tr key={index} style={{height: '20px'}}>
+                                <td>{index+1}</td>
+                                <td className="d-flex justify-content-center align-items-center">{
+                                    item.litem === "Shirt" ? <img width="60px" src={ShirtImage}/>
+                                    : item.litem === "Pants" ? <img width="60px" src={PantsImage}/>
+                                    : item.litem === "Jeans" ? <img width="60px" src={JeansImage}/>
+                                    : item.litem === "Bed Cloth" ? <img width="60px" src={BedClothImage}/>
+                                    : item.litem === "Gloes" ? <img width="60px" src={GloesImage}/>
+                                    : item.litem}
+                                </td>
+                                <td><span className="fw-bold">{item.lrate}</span></td>
+                                <td><button className="btn btn-danger w-100" onClick={() => deleteLaundaryItem(item.id)}>Delete</button></td>
+                            </tr>
+                        ))}
                     </tbody>
-                    <tfoot className="table-secondary">
-                        <tr>
-                            <td colSpan="4" className="text-end"><strong>Total:</strong></td>
-                            <td><strong>{totalLaundaryCost}</strong></td>
-                        </tr>
-                    </tfoot>
                 </table>
-                <h2 className="text-dark my-2">Games</h2>
-                <table className="table table-hover">
+            </div>
+            <h3 className="text-dark fw-bold p-2 mt-3">Games: </h3>
+            <div className="table-responsive table-height">
+                <table className="table table-hover table-bordered table-height">
                     <thead className="table-dark">
                         <tr>
                             <th>Sl. No</th>
-                            <th>Item Name</th>
-                            <th>Quantity</th>
+                            <th>Games</th>
                             <th>Rate</th>
-                            <th>Total</th>
+                            <th>Delete</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {/* Render Restaurant Items */}
-                        {uniqueGamePrice.map((item, index) => {
-                            const quantity = countItems(userGameList, 'gname', item.gname);
-                            const total = quantity * item.grate;
-                            return (
-                                <tr key={index}>
-                                    <td>{index + 1}</td>
-                                    <td>{item.gname}</td>
-                                    <td>{quantity}</td>
-                                    <td>{item.grate}</td>
-                                    <td>{total}</td>
-                                </tr>
-                            );
-                        })}
+                        {userGameList.map((item, index) => (
+                            <tr key={index} style={{height: '20px'}}>
+                                <td>{index+1}</td>
+                                <td className="d-flex justify-content-center align-items-center">{
+                                    item.gname === "Golf" ? <img width="60px" src={GolfImage}/>
+                                    : item.gname === "Tennies" ? <img width="60px" src={TenniesImage}/>
+                                    : item.gname === "Pool Ball" ? <img width="60px" src={PoolBallImage}/>
+                                    : item.gname === "Indoor Games" ? <img width="60px" src={IndoorImage}/>
+                                    : item.gname === "Video Games" ? <img width="60px" src={VideoImage}/>
+                                    : item.gname}
+                                </td>
+                                <td><span className="fw-bold">{item.lrate}</span></td>
+                                <td><button className="btn btn-danger w-100" onClick={() => deleteGameItem(item.id)}>Delete</button></td>
+                            </tr>
+                        ))}
                     </tbody>
-                    <tfoot className="table-secondary">
-                        <tr>
-                            <td colSpan="4" className="text-end"><strong>Total:</strong></td>
-                            <td><strong>{totalGameCost}</strong></td>
-                        </tr>
-                    </tfoot>
-                </table>
-                <h2 className="text-dark my-2">Total Bill</h2>
-                <table className="table table-hover">
-                    <thead className="table-dark">
-                        <tr>
-                            <th>Sl.No</th>
-                            <th>Services</th>
-                            <th>Costs</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>Room Rent</td>
-                            <td>5000</td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>Food</td>
-                            <td>{totalRestaurantCost}</td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td>Laundary</td>
-                            <td>{totalLaundaryCost}</td>
-                        </tr>
-                        <tr>
-                            <td>4</td>
-                            <td>Games</td>
-                            <td>{totalGameCost}</td>
-                        </tr>
-                        <tr>
-                            <td>5</td>
-                            <td>Room Service</td>
-                            <td>{roomService}</td>
-                        </tr>
-                        <tr>
-                            <td>6</td>
-                            <td>GST</td>
-                            <td>{gst}</td>
-                        </tr>
-                    </tbody>
-                    <tfoot className="table-secondary">
-                        <tr>
-                            <th colSpan="2" className="text-end">Total:</th>
-                            <th>{totalBill}</th>
-                        </tr>
-                    </tfoot>
                 </table>
             </div>
         </main>
-    );
-};
-
-export default Home;
+    )
+}

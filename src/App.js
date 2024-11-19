@@ -1,19 +1,18 @@
 import { Route, Routes, useNavigate } from 'react-router-dom';
-import adminApi from './api/adminUrl';
-import userApi from './api/userUrl';
-import gameApi from './api/gamesUrl';
+import api from './api/apiUrl';
 import { useEffect, useState } from 'react';
 import { Admin } from './Components/LogInPage/Admin';
 import { Login } from './Components/LogInPage/Login';
 import { Navbar } from './Components/Features.jsx/Navbar';
 import { Dashboard } from './Components/Pages/Dashboard';
 import { Register } from './Components/LogInPage/Register';
-import { Home } from './Components/Pages/Home';
+import { Bill } from './Components/Pages/Bill';
 import { Games } from './Components/Pages/Games';
 import { Laundary } from './Components/Pages/Laundary';
 import { Restaurant } from './Components/Pages/Restaurant';
 import { NotFound } from './Components/Pages/NotFound';
 import { UserNavbar } from './Components/Features.jsx/UserNavbar';
+import { Home } from './Components/Pages/Home';
 
 function App() {
   const navigate = useNavigate();
@@ -45,7 +44,7 @@ function App() {
   useEffect(() => {
     const fetchAdmin = async () => {
       try {
-        const response = await adminApi.get('/admin');
+        const response = await api.get('/admin');
         setAdmin(response.data);
       } catch (err) {
         console.log(err.message);
@@ -53,7 +52,7 @@ function App() {
     }
     const fetchUser = async () => {
       try {
-        const response = await userApi.get('/user');
+        const response = await api.get('/user');
         setUser(response.data);
       } catch (err) {
         console.log(err.message);
@@ -61,7 +60,7 @@ function App() {
     }
     const fetchGame = async () => {
       try {
-        const response = await gameApi.get('/game');
+        const response = await api.get('/game');
         setGame(response.data);
       } catch (err) {
         console.log(err.message);
@@ -69,7 +68,7 @@ function App() {
     }
     const fetchRestaurant = async () => {
       try {
-        const response = await gameApi.get('/restaurant');
+        const response = await api.get('/restaurant');
         setRestaurant(response.data);
       } catch (err) {
         console.log(err.message);
@@ -77,7 +76,7 @@ function App() {
     }
     const fetchLaundary = async () => {
       try {
-        const response = await gameApi.get('/laundary');
+        const response = await api.get('/laundary');
         setLaundary(response.data);
       } catch (err) {
         console.log(err.message);
@@ -117,7 +116,7 @@ function App() {
           const userName = userLoginName;
           const password = userLoginPassword;
           const useUser = {id, name: userName, password}
-          const response = await userApi.put(`/userLogin/${id}`, useUser);
+          const response = await api.put(`/userLogin/${id}`, useUser);
           console.log(response);
           console.log(response.data);
           setUserLoginData(response.data)
@@ -139,12 +138,12 @@ function App() {
       const userName = registerName;
       const password = registerPassword;
       const newList = {id:String(id), name:userName, password:password}
-      const response = await userApi.post('/user', newList);
+      const response = await api.post('/user', newList);
       const newUser = [...user, response.data]
       setUser(newUser);
       alert("Registration Complete, Now LogIn")
-      registerName("")
-      registerPassword("")
+      setRegisterName('')
+      setRegisterPassword('')
       navigate("/")
     }
 
@@ -153,7 +152,7 @@ function App() {
     useEffect(() => {
         const fetchUserDetails = async () => {
           try {
-            const response = await userApi.get('/userLogin');
+            const response = await api.get('/userLogin');
             setUserLoginData(response.data);
           } catch (err) {
             console.log('Error fetching user login data:', err.message);
@@ -170,7 +169,7 @@ function App() {
       const Name = gName;
       const Rate = gRate;
       const newObj = {id:Id, user:User, gname:Name, grate:Rate}
-      const response = await gameApi.post('/game', newObj);
+      const response = await api.post('/game', newObj);
       const newGame = [...game, response.data];
       setGame(newGame)
     }
@@ -184,7 +183,7 @@ function App() {
       const Name = rName;
       const Rate = rRate;
       const newObj = {id:Id, user:User, ritem:Name, rrate:Rate}
-      const response = await gameApi.post('/restaurant', newObj);
+      const response = await api.post('/restaurant', newObj);
       const newRestaurant = [...restaurant, response.data];
       setRestaurant(newRestaurant)
     }
@@ -196,10 +195,38 @@ function App() {
       const Name = lName;
       const Rate = lRate;
       const newObj = {id:Id, user:User, litem:Name, lrate:Rate}
-      const response = await gameApi.post('/laundary', newObj);
+      const response = await api.post('/laundary', newObj);
       const newLaundary = [...laundary, response.data];
       setLaundary(newLaundary)
     }
+
+    // Delete Restaurant Item
+    const deleteRestaurantItem = async (id) => {
+      try {
+        await api.delete(`/restaurant/${id}`)
+      } catch (err) {
+        console.log(err.message);
+      }
+    }
+
+    // Delete Laundary Item
+    const deleteLaundaryItem = async (id) => {
+      try {
+        await api.delete(`/laundary/${id}`)
+      } catch (err) {
+        console.log(err.message);
+      }
+    }
+    
+    // Delete Laundary Item
+    const deleteGameItem = async (id) => {
+      try {
+        await api.delete(`/game/${id}`)
+      } catch (err) {
+        console.log(err.message);
+      }
+    }
+
   return (
     <div>
       {/* <Navbar /> */}
@@ -237,6 +264,15 @@ function App() {
         </Route>
         <Route path='/user' element={<UserNavbar />}>
           <Route path='home' element={<Home
+            userLoginData = {userLoginData}
+            game = {game}
+            restaurant = {restaurant}
+            laundary = {laundary}
+            deleteRestaurantItem={deleteRestaurantItem}
+            deleteLaundaryItem={deleteLaundaryItem}
+            deleteGameItem={deleteGameItem}
+          />}/>
+          <Route path='bill' element={<Bill
             userLoginData = {userLoginData}
             game = {game}
             restaurant = {restaurant}
