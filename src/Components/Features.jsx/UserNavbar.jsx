@@ -7,7 +7,7 @@ import Navbar from 'react-bootstrap/Navbar';
 export const UserNavbar = () => {
     return (
         <main>
-            <Navbar expand="md" bg="dark" className="position-fixed top-0 w-100" data-bs-theme="dark">
+            <Navbar expand="md" bg="dark" className="NavBar position-fixed top-0 w-100" data-bs-theme="dark">
             <Container>
                 <Navbar.Brand href="#home">V-Hotal</Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
