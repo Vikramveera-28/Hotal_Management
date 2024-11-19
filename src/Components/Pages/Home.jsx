@@ -40,11 +40,11 @@ export const Home = ({userLoginData, game, restaurant, laundary, deleteRestauran
                             <tr key={index} style={{height: '20px'}}>
                                 <td>{index+1}</td>
                                 <td className="d-flex justify-content-center align-items-center">{
-                                    item.ritem === "Biriyani" ? <img width="60px" src={BiriyaniImage}/>
-                                    : item.ritem === "Chicken Rice" ? <img width="60px" src={ChickenRiceImage}/>
-                                    : item.ritem === "Meals" ? <img width="60px" src={MealsImage}/>
-                                    : item.ritem === "Tandoori" ? <img width="60px" src={TandooriImage}/>
-                                    : item.ritem === "Cool Drinks" ? <img width="60px" src={CoolDrinksImage}/>
+                                    item.ritem === "Biriyani" ? <img width="60px" alt="restaurant-item" src={BiriyaniImage}/>
+                                    : item.ritem === "Chicken Rice" ? <img width="60px" alt="restaurant-item" src={ChickenRiceImage}/>
+                                    : item.ritem === "Meals" ? <img width="60px" alt="restaurant-item" src={MealsImage}/>
+                                    : item.ritem === "Tandoori" ? <img width="60px" alt="restaurant-item" src={TandooriImage}/>
+                                    : item.ritem === "Cool Drinks" ? <img width="60px" alt="restaurant-item" src={CoolDrinksImage}/>
                                     : item.ritem}
                                 </td>
                                 <td><span className="fw-bold">{item.rrate}</span></td>
@@ -70,11 +70,11 @@ export const Home = ({userLoginData, game, restaurant, laundary, deleteRestauran
                             <tr key={index} style={{height: '20px'}}>
                                 <td>{index+1}</td>
                                 <td className="d-flex justify-content-center align-items-center">{
-                                    item.litem === "Shirt" ? <img width="60px" src={ShirtImage}/>
-                                    : item.litem === "Pants" ? <img width="60px" src={PantsImage}/>
-                                    : item.litem === "Jeans" ? <img width="60px" src={JeansImage}/>
-                                    : item.litem === "Bed Cloth" ? <img width="60px" src={BedClothImage}/>
-                                    : item.litem === "Gloes" ? <img width="60px" src={GloesImage}/>
+                                    item.litem === "Shirt" ? <img width="60px" alt="laundary-item" src={ShirtImage}/>
+                                    : item.litem === "Pants" ? <img width="60px" alt="laundary-item" src={PantsImage}/>
+                                    : item.litem === "Jeans" ? <img width="60px" alt="laundary-item" src={JeansImage}/>
+                                    : item.litem === "Bed Cloth" ? <img width="60px" alt="laundary-item" src={BedClothImage}/>
+                                    : item.litem === "Gloes" ? <img width="60px" alt="laundary-item" src={GloesImage}/>
                                     : item.litem}
                                 </td>
                                 <td><span className="fw-bold">{item.lrate}</span></td>
@@ -100,11 +100,11 @@ export const Home = ({userLoginData, game, restaurant, laundary, deleteRestauran
                             <tr key={index} style={{height: '20px'}}>
                                 <td>{index+1}</td>
                                 <td className="d-flex justify-content-center align-items-center">{
-                                    item.gname === "Golf" ? <img width="60px" src={GolfImage}/>
-                                    : item.gname === "Tennies" ? <img width="60px" src={TenniesImage}/>
-                                    : item.gname === "Pool Ball" ? <img width="60px" src={PoolBallImage}/>
-                                    : item.gname === "Indoor Games" ? <img width="60px" src={IndoorImage}/>
-                                    : item.gname === "Video Games" ? <img width="60px" src={VideoImage}/>
+                                    item.gname === "Golf" ? <img width="60px" alt="games" src={GolfImage}/>
+                                    : item.gname === "Tennies" ? <img width="60px" alt="games" src={TenniesImage}/>
+                                    : item.gname === "Pool Ball" ? <img width="60px" alt="games" src={PoolBallImage}/>
+                                    : item.gname === "Indoor Games" ? <img width="60px" alt="games" src={IndoorImage}/>
+                                    : item.gname === "Video Games" ? <img width="60px" alt="games" src={VideoImage}/>
                                     : item.gname}
                                 </td>
                                 <td><span className="fw-bold">{item.lrate}</span></td>
