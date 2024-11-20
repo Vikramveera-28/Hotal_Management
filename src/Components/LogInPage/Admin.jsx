@@ -2,7 +2,7 @@ import React from "react";
 import '../../App.css';
 import '../../Bootsrap/css/bootstrap.min.css';
 
-export const Admin = ({admin, adminName, setAdminName, adminPassword, setAdminPassword, adminLogin}) => {
+export const Admin = ({adminName, setAdminName, adminPassword, setAdminPassword, adminLogin}) => {
     return(
         <main className="d-flex justify-content-center align-items-center pt-5 form-page admin-page">
             <form action="" onSubmit={adminLogin} className="border border-2 rounded-3 p-3 bg-form" style={{width: '30rem', height: '18rem'}}>

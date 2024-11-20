@@ -9,18 +9,23 @@ import { Register } from './Components/LogInPage/Register';
 import { NavbarLogin } from './Components/Features/NavbarLogin';
 import { UserNavbar } from './Components/Features/UserNavbar';
 
-import { Dashboard } from './Components/Pages/Dashboard';
-import { Home } from './Components/Pages/Home';
-import { Restaurant } from './Components/Pages/Restaurant';
-import { Laundary } from './Components/Pages/Laundary';
-import { Games } from './Components/Pages/Games';
-import { Bill } from './Components/Pages/Bill';
+import { Dashboard } from './Components/Pages/AdminAccessPages/Dashboard';
+import { Home } from './Components/Pages/UserAccessPages/Home';
+import { Restaurant } from './Components/Pages/UserAccessPages/Restaurant';
+import { Laundary } from './Components/Pages/UserAccessPages/Laundary';
+import { Games } from './Components/Pages/UserAccessPages/Games';
+import { Bill } from './Components/Pages/UserAccessPages/Bill';
 import { NotFound } from './Components/Pages/NotFound';
 
 import Box from '@mui/material/Box';
 // import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
+import { EditUser } from './Components/Pages/AdminAccessPages/EditUser';
+import { EditRestaurant } from './Components/Pages/AdminAccessPages/EditRestaurant';
+import { EditLaundary } from './Components/Pages/AdminAccessPages/EditLaundary';
+import { EditGames } from './Components/Pages/AdminAccessPages/EditGames';
+import { AdminHome } from './Components/Pages/AdminAccessPages/AdminHome';
 
 function App() {
   const navigate = useNavigate();
@@ -46,6 +51,9 @@ function App() {
   const [restaurant, setRestaurant] = useState([]);
   // User Laundary
   const [laundary, setLaundary] = useState([]);
+  // Loading
+  const [fetchError , setFetchError] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
   // Model
   const [open, setOpen] = useState(false);
   const [message, setMessage] = useState('');
@@ -78,8 +86,12 @@ function App() {
       try {
         const response = await api.get('/user');
         setUser(response.data);
+        setFetchError(null);
       } catch (err) {
-        console.log(err.message);
+        setFetchError(err.message);
+      } finally {
+        console.log("Hello");
+        setIsLoading(false)
       }
     }
     const fetchGame = async () => {
@@ -112,7 +124,7 @@ function App() {
     fetchGame();
     fetchRestaurant();
     fetchLaundary();
-  }, []);
+  }, [user]);
 
   // Admin Login Function
   const adminLogin = (e) => {
@@ -123,11 +135,12 @@ function App() {
       if (Name[0] === adminName && Password[0] === adminPassword) {
         navigate('/dashboard');
       } else {
-        alert("Invalid: Password");
+        handleOpen();
+        setMessage("Invalid Password")
       }
     } else {
       handleOpen();
-      setMessage("User Id: VikramKumar Password: Vikramveera28")
+      setMessage("Admin Only Access this Feature")
     }
   }
 
@@ -135,27 +148,32 @@ function App() {
   const userLogin = (e) => {
     e.preventDefault();    
     const User = user.find(user => user.name === userLoginName);    
-    if (User && User.password === userLoginPassword) {
-      const fetchLogin = async () => {
-        try {
-          const id = "1";
-          const userName = userLoginName;
-          const password = userLoginPassword;
-          const useUser = {id, name: userName, password}
-          const response = await api.put(`/userLogin/${id}`, useUser);
-          console.log(response);
-          console.log(response.data);
-          setUserLoginData(response.data)
-          console.log(userLoginData);
-        } catch (err) {
-          console.log(err.message);
+    if (User) {
+      if (User.password === userLoginPassword) {
+        const fetchLogin = async () => {
+          try {
+            const id = "1";
+            const userName = userLoginName;
+            const password = userLoginPassword;
+            const useUser = {id, name: userName, password}
+            const response = await api.put(`/userLogin/${id}`, useUser);
+            console.log(response);
+            console.log(response.data);
+            setUserLoginData(response.data)
+            console.log(userLoginData);
+          } catch (err) {
+            console.log(err.message);
+          }
         }
+        fetchLogin();
+        navigate('/user/home');
+      } else {
+        handleOpen()
+        setMessage("Invalid Password");
       }
-      fetchLogin();
-      navigate('/user/home');
     } else {
       handleOpen()
-      setMessage("Invalid credentials");
+      setMessage("Invalid User. Register Now!");
     }
   }
     // User registration function
@@ -262,63 +280,50 @@ function App() {
         <Route path='/' element={<NavbarLogin />}>
           <Route index element={
             <Login
-              user={user}
-              userLoginName={userLoginName}
-              setUserLoginName={setUserLoginName}
-              userLoginPassword={userLoginPassword}
-              setUserLoginPassword={setUserLoginPassword}
-              userLogin={userLogin}
+              userLoginName={userLoginName} setUserLoginName={setUserLoginName}
+              userLoginPassword={userLoginPassword} setUserLoginPassword={setUserLoginPassword}
+              userLogin={userLogin} fetchError={fetchError}
             />
           }/>
           <Route path='/register' element={
             <Register
-              registerName = {registerName}
-              setRegisterName={setRegisterName}
-              registerPassword = {registerPassword}
-              setRegisterPassword={setRegisterPassword}
-              userRegister={userRegister}
+              registerName = {registerName} setRegisterName={setRegisterName}
+              registerPassword = {registerPassword} setRegisterPassword={setRegisterPassword}
+              userRegister={userRegister} fetchError={fetchError}
             />}
           />
-          <Route path='/admin' element={
-            <Admin
-              admin={admin}
-              adminName={adminName}
-              setAdminName={setAdminName}
-              adminPassword={adminPassword}
-              setAdminPassword={setAdminPassword}
-              adminLogin={adminLogin}
-            />
-          }/>
+          <Route path='/admin' element={<Admin
+              adminName={adminName} setAdminName={setAdminName}
+              adminPassword={adminPassword} setAdminPassword={setAdminPassword}
+              adminLogin={adminLogin} fetchError={fetchError}
+              />
+            }/>
         </Route>
         <Route path='/user' element={<UserNavbar />}>
           <Route path='home' element={<Home
-            userLoginData = {userLoginData}
-            game = {game}
-            restaurant = {restaurant}
-            laundary = {laundary}
-            deleteRestaurantItem={deleteRestaurantItem}
-            deleteLaundaryItem={deleteLaundaryItem}
-            deleteGameItem={deleteGameItem}
+            userLoginData = {userLoginData} fetchError={fetchError}
+            game = {game} restaurant = {restaurant} laundary = {laundary}
+            deleteRestaurantItem={deleteRestaurantItem} deleteLaundaryItem={deleteLaundaryItem} deleteGameItem={deleteGameItem}
           />}/>
           <Route path='bill' element={<Bill
-            userLoginData = {userLoginData}
-            game = {game}
-            restaurant = {restaurant}
-            laundary = {laundary}
+            userLoginData = {userLoginData} fetchError={fetchError}
+            game = {game} restaurant = {restaurant} laundary = {laundary}
           />}/>
           <Route path='game' element={<Games gameList={gameList} game={game}/>}/>
           <Route path='laundary' element={<Laundary laundaryList={laundaryList}/>}/>
           <Route path='restaurant' element={<Restaurant restaurantList={restaurantList}/>}/>
         </Route>
-        <Route path='/dashboard' element={<Dashboard />}/>
+        <Route path='dashboard' element={<Dashboard />}>
+            <Route path='adminHome' element={<AdminHome admin={admin}/>} />
+            <Route path='editUser' element={<EditUser user={user} fetchError={fetchError} isLoading={isLoading}/>} />
+            <Route path='editRestaurant' element={<EditRestaurant fetchError={fetchError} restaurant={restaurant}/>} />
+            <Route path='editLaundary' element={<EditLaundary fetchError={fetchError} laundary={laundary}/>} />
+            <Route path='editGames' element={<EditGames fetchError={fetchError} game={game}/>} />
+        </Route>
         <Route path='*' element={<NotFound />}/>
       </Routes>
-      <Modal
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
+
+      <Modal open={open} onClose={handleClose}>
         <Box sx={style}>
           <Typography id="modal-modal-title" variant="h6" component="h2">
             {message}

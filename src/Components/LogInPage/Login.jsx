@@ -3,7 +3,7 @@ import '../../App.css';
 import '../../Bootsrap/css/bootstrap.min.css';
 import { Link } from "react-router-dom";
 
-export const Login = ({user, userLoginName, setUserLoginName, userLoginPassword, setUserLoginPassword, userLogin}) => {
+export const Login = ({userLoginName, setUserLoginName, userLoginPassword, setUserLoginPassword, userLogin}) => {
     return(
         <main className="d-flex justify-content-center align-items-center pt-5 form-page login-page">
             <div className="box border border-2 rounded-3 bg-form" style={{width: '30rem', height: '20rem'}}>
