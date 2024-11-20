@@ -1,18 +1,26 @@
 import { Route, Routes, useNavigate } from 'react-router-dom';
-import api from './api/apiUrl';
+import api from './api/apiUrl'; 
 import { useEffect, useState } from 'react';
+
 import { Admin } from './Components/LogInPage/Admin';
 import { Login } from './Components/LogInPage/Login';
-import { NavbarLogin } from './Components/Features.jsx/NavbarLogin';
-import { Dashboard } from './Components/Pages/Dashboard';
 import { Register } from './Components/LogInPage/Register';
-import { Bill } from './Components/Pages/Bill';
-import { Games } from './Components/Pages/Games';
-import { Laundary } from './Components/Pages/Laundary';
-import { Restaurant } from './Components/Pages/Restaurant';
-import { NotFound } from './Components/Pages/NotFound';
-import { UserNavbar } from './Components/Features.jsx/UserNavbar';
+
+import { NavbarLogin } from './Components/Features/NavbarLogin';
+import { UserNavbar } from './Components/Features/UserNavbar';
+
+import { Dashboard } from './Components/Pages/Dashboard';
 import { Home } from './Components/Pages/Home';
+import { Restaurant } from './Components/Pages/Restaurant';
+import { Laundary } from './Components/Pages/Laundary';
+import { Games } from './Components/Pages/Games';
+import { Bill } from './Components/Pages/Bill';
+import { NotFound } from './Components/Pages/NotFound';
+
+import Box from '@mui/material/Box';
+// import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+import Modal from '@mui/material/Modal';
 
 function App() {
   const navigate = useNavigate();
@@ -38,6 +46,22 @@ function App() {
   const [restaurant, setRestaurant] = useState([]);
   // User Laundary
   const [laundary, setLaundary] = useState([]);
+  // Model
+  const [open, setOpen] = useState(false);
+  const [message, setMessage] = useState('');
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+  const style = {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 400,
+    bgcolor: 'background.paper',
+    border: '2px solid #000',
+    boxShadow: 24,
+    p: 4,
+  };
   
   
   // get the information in api and store
@@ -94,14 +118,17 @@ function App() {
   const adminLogin = (e) => {
     e.preventDefault();
     const Name = admin.map(admin => admin.name);
-    const Password = admin.map(admin => admin.password);    
-    console.log(Name);
-    console.log(Password);
-    if (Name[0] === adminName && Password[0] === adminPassword) {
-      alert("Sucsess")
-      navigate('/dashboard');
+    const Password = admin.map(admin => admin.password);
+    if (Name[0] === adminName) {
+      if (Name[0] === adminName && Password[0] === adminPassword) {
+        alert("Sucsess")
+        // navigate('/dashboard');
+      } else {
+        alert("Invalid: Password");
+      }
     } else {
-      console.log("Invalid login");
+      handleOpen();
+      setMessage("User Id: VikramKumar Password: Vikramveera28")
     }
   }
 
@@ -128,7 +155,8 @@ function App() {
       fetchLogin();
       navigate('/user/home');
     } else {
-      console.log("Invalid credentials");
+      handleOpen()
+      setMessage("Invalid credentials");
     }
   }
     // User registration function
@@ -141,7 +169,8 @@ function App() {
       const response = await api.post('/user', newList);
       const newUser = [...user, response.data]
       setUser(newUser);
-      alert("Registration Complete, Now LogIn")
+      handleOpen()
+      setMessage("Registration Complete");
       setRegisterName('')
       setRegisterPassword('')
       navigate("/")
@@ -285,6 +314,18 @@ function App() {
         <Route path='/dashboard' element={<Dashboard />}/>
         <Route path='*' element={<NotFound />}/>
       </Routes>
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={style}>
+          <Typography id="modal-modal-title" variant="h6" component="h2">
+            {message}
+          </Typography>
+        </Box>
+      </Modal>
     </div>
   );
 }

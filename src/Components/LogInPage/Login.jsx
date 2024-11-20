@@ -27,8 +27,7 @@ export const Login = ({user, userLoginName, setUserLoginName, userLoginPassword,
                         />
                     <button className="btn btn-primary w-100 mt-4" type="submit">Log In</button>
                 </form>
-                <div className="d-flex justify-content-between align-items-center px-3">
-                    <h5 className="text-primary h6">Forget Password?</h5>
+                <div className="d-flex justify-content-center align-items-center px-3">
                     <h5 className="text-secondary h6 text-light">Create new Accound? <Link to={'/register'}><span className="text-primary border border-2 rounded-3 p-1">Sign Up</span></Link></h5>
                 </div>
             </div>
