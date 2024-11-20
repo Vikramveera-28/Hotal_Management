@@ -121,8 +121,7 @@ function App() {
     const Password = admin.map(admin => admin.password);
     if (Name[0] === adminName) {
       if (Name[0] === adminName && Password[0] === adminPassword) {
-        alert("Sucsess")
-        // navigate('/dashboard');
+        navigate('/dashboard');
       } else {
         alert("Invalid: Password");
       }
