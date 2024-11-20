@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import '../../../Bootsrap/css/bootstrap.min.css';
 
 export const EditRestaurant = ({restaurant, fetchError}) => {
