@@ -40,3 +40,6 @@ main{
 .NavBar{
   z-index: 2;
 }
+.aside-navbar{
+  background-color: whitesmoke;
+}

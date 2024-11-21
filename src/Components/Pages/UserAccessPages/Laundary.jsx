@@ -43,7 +43,7 @@ export const Laundary = ({laundaryList}) => {
     return(
         <main className="d-flex justify-content-center align-items-center p-3">
             <div className="container">
-                <h1 className="display-5 text-center text-primary">Laundary</h1>
+                <h1 className="display-5 text-center text-primary mt-5">Laundary</h1>
                 <div className="row gy-5">
                     {laundary.map((item, index) => (
                         index%2===0 ? (
@@ -60,7 +60,7 @@ export const Laundary = ({laundaryList}) => {
                                             <h1 className="text-center text-primary w-100 my-3 border-bottom">{item.item}</h1>
                                             <h4 className="text-secondary">Per Quantity: <span className="text-success">1/per</span></h4>
                                             <h4 className="text-secondary">Price: <span className="text-success">Rs. {item.rate}</span></h4>
-                                            <button className="btn btn-warning w-100 mt-3" onClick={() => laundaryList(item.item, item.rate)}>Play</button>
+                                            <button className="btn btn-warning w-100 mt-3" onClick={() => laundaryList(item.item, item.rate)}>Clear</button>
                                         </div>
                                     </div>
                                 </div>
@@ -75,7 +75,7 @@ export const Laundary = ({laundaryList}) => {
                                             <h1 className="text-center text-primary w-100 my-3 border-bottom">{item.item}</h1>
                                             <h4 className="text-secondary">Per Quantity: <span className="text-success">1/per</span></h4>
                                             <h4 className="text-secondary">Price: <span className="text-success">Rs. {item.rate}</span></h4>
-                                            <button className="btn btn-warning w-100 mt-3" onClick={() => laundaryList(item.item, item.rate)}>Play</button>
+                                            <button className="btn btn-warning w-100 mt-3" onClick={() => laundaryList(item.item, item.rate)}>Clear</button>
                                         </div>
                                     </div>
                                     <div className="col-12 col-md-6">

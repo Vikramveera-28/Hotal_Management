@@ -11,7 +11,7 @@ export const EditLaundary = ({laundary, fetchError}) => {
         );
   return (
     <>
-    <h3 className="text-secondary border-bottom border-secondary mb-5 p-2">Games Menu List</h3>
+    <h3 className="text-secondary border-bottom border-secondary mb-5 p-2">Laundary Menu List</h3>
         <div className="table-responsive">
             <table className="table table-hover table-bordered">
                 <thead>

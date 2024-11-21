@@ -1,7 +1,9 @@
-import React, { useEffect } from 'react'
+import React, { useState } from 'react'
 import '../../../Bootsrap/css/bootstrap.min.css';
 
 export const EditRestaurant = ({restaurant, fetchError}) => {
+    // const [changeName, setChangeName] = useState('')
+    const [changeRate, setChangeRate] = useState('')
     const uniqueRestaurantPrice = restaurant
     .map(item => ({ ritem: item.ritem, rrate: item.rrate })) // Map to {ritem, rrate}
     .filter((value, index, self) =>
@@ -11,7 +13,9 @@ export const EditRestaurant = ({restaurant, fetchError}) => {
     );
     console.log(uniqueRestaurantPrice);
         
-    
+    const changeItemsRate = (item) => {
+        alert(`${item}: ${changeRate}`);
+    }
   return (
     <>
         <h3 className="text-secondary border-bottom border-secondary mb-5 p-2">Restaurand Menu List</h3>
@@ -32,8 +36,13 @@ export const EditRestaurant = ({restaurant, fetchError}) => {
                             <td className='fw-bold'>{item.ritem}</td>
                             <td className='fw-bold'>{item.rrate}</td>
                             <td className='d-flex gap-2'>
-                                <input type="number" className='form-control' />
-                                <button type="submit" className='btn btn-info'>Change</button>
+                                <input
+                                    type="number"
+                                    className='form-control'
+                                    value={changeRate}
+                                    onChange={(e) => setChangeRate(e.target.value)}
+                                />
+                                <button type="submit" className='btn btn-info' onClick={() => changeItemsRate(item.ritem)}>Change</button>
                             </td>
                         </tr>
                     ))}

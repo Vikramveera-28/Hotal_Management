@@ -23,7 +23,7 @@ export const Home = ({userLoginData, game, restaurant, laundary, deleteRestauran
     const userGameList = game.filter(item => item.user === userName)
     return(
         <main className="container">
-            <h3 className="text-secondary fw-bold border-bottom border-secondary p-2">{userName}</h3>
+            <h3 className="text-secondary fw-bold border-bottom border-secondary p-2 mt-5">{userName}'s Home Page</h3>
             <h3 className="text-dark fw-bold p-2 mt-3">Restaurant: </h3>
             <div className="table-responsive table-height">
                 <table className="table table-hover table-bordered table-height">

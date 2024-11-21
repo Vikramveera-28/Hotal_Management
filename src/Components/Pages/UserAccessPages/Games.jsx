@@ -43,7 +43,7 @@ export const Games = ({gameList}) => {
     return(
         <main className="d-flex justify-content-center align-items-center p-3">
             <div className="container">
-                <h1 className="display-5 text-center text-primary">Games</h1>
+                <h1 className="display-5 text-center text-primary mt-5">Games</h1>
                 <div className="row gy-5">
                     {games.map((item, index) => (
                         index%2===0 ? (

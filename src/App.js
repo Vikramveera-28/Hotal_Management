@@ -78,6 +78,7 @@ function App() {
       try {
         const response = await api.get('/admin');
         setAdmin(response.data);
+        console.log(admin);
       } catch (err) {
         console.log(err.message);
       }
@@ -90,7 +91,6 @@ function App() {
       } catch (err) {
         setFetchError(err.message);
       } finally {
-        console.log("Hello");
         setIsLoading(false)
       }
     }
@@ -124,7 +124,7 @@ function App() {
     fetchGame();
     fetchRestaurant();
     fetchLaundary();
-  }, [user]);
+  }, []);
 
   // Admin Login Function
   const adminLogin = (e) => {
@@ -133,7 +133,7 @@ function App() {
     const Password = admin.map(admin => admin.password);
     if (Name[0] === adminName) {
       if (Name[0] === adminName && Password[0] === adminPassword) {
-        navigate('/dashboard');
+        navigate('/dashboard/editUser');
       } else {
         handleOpen();
         setMessage("Invalid Password")
@@ -157,10 +157,7 @@ function App() {
             const password = userLoginPassword;
             const useUser = {id, name: userName, password}
             const response = await api.put(`/userLogin/${id}`, useUser);
-            console.log(response);
-            console.log(response.data);
             setUserLoginData(response.data)
-            console.log(userLoginData);
           } catch (err) {
             console.log(err.message);
           }
@@ -218,6 +215,7 @@ function App() {
       const response = await api.post('/game', newObj);
       const newGame = [...game, response.data];
       setGame(newGame)
+      alert(`Now i can Play : ${Name}`)
     }
 
     // Add restaurant
@@ -232,6 +230,7 @@ function App() {
       const response = await api.post('/restaurant', newObj);
       const newRestaurant = [...restaurant, response.data];
       setRestaurant(newRestaurant)
+      alert(`Your order recived : ${Name}`)
     }
 
     // Add Laundary
@@ -244,6 +243,7 @@ function App() {
       const response = await api.post('/laundary', newObj);
       const newLaundary = [...laundary, response.data];
       setLaundary(newLaundary)
+      alert(`Now you can wash your : ${Name}`)
     }
 
     // Delete Restaurant Item
@@ -314,7 +314,7 @@ function App() {
           <Route path='restaurant' element={<Restaurant restaurantList={restaurantList}/>}/>
         </Route>
         <Route path='dashboard' element={<Dashboard />}>
-            <Route path='adminHome' element={<AdminHome admin={admin}/>} />
+            {/* <Route path='adminHome' element={<AdminHome admin={admin}/>} /> */}
             <Route path='editUser' element={<EditUser user={user} fetchError={fetchError} isLoading={isLoading}/>} />
             <Route path='editRestaurant' element={<EditRestaurant fetchError={fetchError} restaurant={restaurant}/>} />
             <Route path='editLaundary' element={<EditLaundary fetchError={fetchError} laundary={laundary}/>} />

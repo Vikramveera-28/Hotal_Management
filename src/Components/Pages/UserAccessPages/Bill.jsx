@@ -5,17 +5,17 @@ import '../../../Bootsrap/css/bootstrap.min.css';
 export const Bill = ({ userLoginData, game, restaurant, laundary, fetchError }) => {
     const userName = userLoginData[0]?.name;
 
-    // Helper function to count occurrences of specific items in a list
+    // Help to get specific items in a list
     const countItems = (list, key, value) => list.filter(item => item[key] === value).length;
 
-    // Filter the lists based on the user name
+    // Get separate User
     const userGameList = game.filter(user => user.user === userName);
     const userRestaurantList = restaurant.filter(user => user.user === userName);
     const userLaundaryList = laundary.filter(user => user.user === userName);
 
     // Get unique game, restaurant, and laundry price objects
     const uniqueGamePrice = userGameList
-        .map(item => ({ gname: item.gname, grate: item.grate })) // Map to {gname, grate}
+        .map(item => ({ gname: item.gname, grate: item.grate }))
         .filter((value, index, self) =>
             index === self.findIndex((t) => (
                 t.gname === value.gname && t.grate === value.grate
@@ -23,7 +23,7 @@ export const Bill = ({ userLoginData, game, restaurant, laundary, fetchError }) 
         );
 
     const uniqueRestaurantPrice = userRestaurantList
-        .map(item => ({ ritem: item.ritem, rrate: item.rrate })) // Map to {ritem, rrate}
+        .map(item => ({ ritem: item.ritem, rrate: item.rrate }))
         .filter((value, index, self) =>
             index === self.findIndex((t) => (
                 t.ritem === value.ritem && t.rrate === value.rrate
@@ -31,27 +31,28 @@ export const Bill = ({ userLoginData, game, restaurant, laundary, fetchError }) 
         );
 
     const uniqueLaundaryPrice = userLaundaryList
-        .map(item => ({ litem: item.litem, lrate: item.lrate })) // Map to {litem, lrate}
+        .map(item => ({ litem: item.litem, lrate: item.lrate }))
         .filter((value, index, self) =>
             index === self.findIndex((t) => (
                 t.litem === value.litem && t.lrate === value.lrate
             ))
         );
-    // Calculate total price for restaurant items
+
+    // total price for restaurant, laundary, Games
     const totalRestaurantCost = uniqueRestaurantPrice.reduce((total, item) => {
         const quantity = countItems(userRestaurantList, 'ritem', item.ritem);
         return total + (quantity * item.rrate);
-    }, 0);  // Start from 0
-    // Calculate total price for laundary items
+    }, 0);
+    
     const totalLaundaryCost = uniqueLaundaryPrice.reduce((total, item) => {
         const quantity = countItems(userLaundaryList, 'litem', item.litem);
         return total + (quantity * item.lrate);
-    }, 0);  // Start from 0
-    // Calculate total price for laundary items
+    }, 0);
+    
     const totalGameCost = uniqueGamePrice.reduce((total, item) => {
         const quantity = countItems(userGameList, 'gname', item.gname);
         return total + (quantity * item.grate);
-    }, 0);  // Start from 0
+    }, 0);
 
     const roomRent = 5000;
     const roomService = 500;
@@ -60,9 +61,8 @@ export const Bill = ({ userLoginData, game, restaurant, laundary, fetchError }) 
     const totalBill = roomRent + totalRestaurantCost + totalLaundaryCost + totalGameCost + roomService + gst
 
     return (
-        <main className="container">
-            <h3 className="text-secondary border-bottom border-2 border-primary-subtle w-100 pb-2 mt-3 ps-2">{userName}'s Bill Page</h3>
-
+        <main className="container mt-2">
+            <h3 className="text-secondary border-bottom border-2 border-primary-subtle w-100 pb-2 mt-3 ps-2 mt-5">{userName}'s Bill Page</h3>
             <div className="mt-5">
                 <h2 className="text-dark my-2">Restaurant</h2>
                 <table className="table table-hover">
@@ -76,7 +76,6 @@ export const Bill = ({ userLoginData, game, restaurant, laundary, fetchError }) 
                         </tr>
                     </thead>
                     <tbody>
-                        {/* Render Restaurant Items */}
                         {uniqueRestaurantPrice.map((item, index) => {
                             const quantity = countItems(userRestaurantList, 'ritem', item.ritem);
                             const total = quantity * item.rrate;
@@ -111,7 +110,6 @@ export const Bill = ({ userLoginData, game, restaurant, laundary, fetchError }) 
                         </tr>
                     </thead>
                     <tbody>
-                        {/* Render Restaurant Items */}
                         {uniqueLaundaryPrice.map((item, index) => {
                             const quantity = countItems(userLaundaryList, 'litem', item.litem);
                             const total = quantity * item.lrate;
@@ -146,7 +144,6 @@ export const Bill = ({ userLoginData, game, restaurant, laundary, fetchError }) 
                         </tr>
                     </thead>
                     <tbody>
-                        {/* Render Restaurant Items */}
                         {uniqueGamePrice.map((item, index) => {
                             const quantity = countItems(userGameList, 'gname', item.gname);
                             const total = quantity * item.grate;
