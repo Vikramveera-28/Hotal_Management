@@ -25,7 +25,7 @@ import { EditUser } from './Components/Pages/AdminAccessPages/EditUser';
 import { EditRestaurant } from './Components/Pages/AdminAccessPages/EditRestaurant';
 import { EditLaundary } from './Components/Pages/AdminAccessPages/EditLaundary';
 import { EditGames } from './Components/Pages/AdminAccessPages/EditGames';
-import { AdminHome } from './Components/Pages/AdminAccessPages/AdminHome';
+// import { AdminHome } from './Components/Pages/AdminAccessPages/AdminHome';
 
 function App() {
   const navigate = useNavigate();
@@ -78,7 +78,6 @@ function App() {
       try {
         const response = await api.get('/admin');
         setAdmin(response.data);
-        console.log(admin);
       } catch (err) {
         console.log(err.message);
       }
