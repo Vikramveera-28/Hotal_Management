@@ -11,7 +11,6 @@ export const EditRestaurant = ({restaurant, fetchError}) => {
             t.ritem === value.ritem && t.rrate === value.rrate
         ))
     );
-    console.log(uniqueRestaurantPrice);
         
     const changeItemsRate = (item) => {
         alert(`${item}: ${changeRate}`);
