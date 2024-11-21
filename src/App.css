@@ -2,6 +2,7 @@ main{
   width: 100vw;
   min-height: 100vh;
   overflow: hidden;
+  background-color: rgb(224, 224, 224);
 }
 .dashboard{
   width: 100vw;
