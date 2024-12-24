@@ -54,8 +54,6 @@ function App() {
   // Loading
   const [fetchError , setFetchError] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
-  // Notification
-  const [notification, setNotification] = useState('');
   // Model
   const [open, setOpen] = useState(false);
   const [message, setMessage] = useState('');
