@@ -54,6 +54,8 @@ function App() {
   // Loading
   const [fetchError , setFetchError] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+  // Notification
+  const [notification, setNotification] = useState('');
   // Model
   const [open, setOpen] = useState(false);
   const [message, setMessage] = useState('');
@@ -124,6 +126,23 @@ function App() {
     fetchRestaurant();
     fetchLaundary();
   }, []);
+  const notificationFunc = (category, order) => {
+    var message = ''
+    if (category === "Restaurent"){
+      message = `We will delivery your order(${order}))`;
+    } else if (category === "Game"){
+      message = `Now you can play ${order} game`
+    } else if (category === "Laundary") {
+      message = `Now you can wash your ${order}`
+    }
+    Notification.requestPermission(permission => {
+      if (permission === "granted"){
+        new Notification(message)
+      } else{
+        alert("Permission wasn't permited");
+      }
+    })
+  }
 
   // Admin Login Function
   const adminLogin = (e) => {
@@ -214,22 +233,20 @@ function App() {
       const response = await api.post('/game', newObj);
       const newGame = [...game, response.data];
       setGame(newGame)
-      alert(`Now i can Play : ${Name}`)
+      notificationFunc("Game", Name);
     }
 
     // Add restaurant
     const restaurantList = async (rName, rRate) => {
       const Id = restaurant.length ? Number(restaurant[restaurant.length-1].id)+1 : 1;      
       const User = userLoginData[0]?.name;
-      console.log(userLoginData);
-      console.log(User);
       const Name = rName;
       const Rate = rRate;
       const newObj = {id:Id, user:User, ritem:Name, rrate:Rate}
       const response = await api.post('/restaurant', newObj);
       const newRestaurant = [...restaurant, response.data];
       setRestaurant(newRestaurant)
-      alert(`Your order recived : ${Name}`)
+      notificationFunc("Restaurent", Name);
     }
 
     // Add Laundary
@@ -242,7 +259,7 @@ function App() {
       const response = await api.post('/laundary', newObj);
       const newLaundary = [...laundary, response.data];
       setLaundary(newLaundary)
-      alert(`Now you can wash your : ${Name}`)
+      notificationFunc("Laundary", Name);
     }
 
     // Delete Restaurant Item
