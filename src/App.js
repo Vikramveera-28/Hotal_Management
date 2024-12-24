@@ -137,7 +137,7 @@ function App() {
       if (permission === "granted"){
         new Notification(message)
       } else{
-        alert("Permission wasn't permited");
+        alert(message);
       }
     })
   }
