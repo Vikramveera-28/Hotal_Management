@@ -1,0 +1,174 @@
+{
+  "admin": [
+    {
+      "id": "1",
+      "userName": "VikramKumar",
+      "password": "Vikramveera28"
+    }
+  ],
+  "user": [
+    {
+      "id": "1",
+      "userName": "VikramKumar",
+      "password": "Vikramveera28"
+    },
+    {
+      "id": "2",
+      "userName": "Vicky",
+      "password": "Vicky2001"
+    }
+  ],
+  "userLogin": [
+    {
+      "id": "1",
+      "userName": "Vicky",
+      "password": "Vicky2001"
+    }
+  ],
+  "game": [
+    {
+      "id": "1",
+      "game": "Golf",
+      "price": 500
+    },
+    {
+      "id": "3",
+      "game": "Pool Ball",
+      "price": 300
+    },
+    {
+      "id": "3",
+      "game": "Tennies",
+      "price": 200
+    },
+    {
+      "id": "4",
+      "game": "Indoor Games",
+      "price": 250
+    },
+    {
+      "id": "5",
+      "game": "Video Games",
+      "price": 100
+    }
+  ],
+  "restaurant": [
+    {
+      "id": "1",
+      "food": "Biriyani",
+      "price": 150
+    },
+    {
+      "id": "2",
+      "food": "Chicken Rice",
+      "price": 110
+    },
+    {
+      "id": "3",
+      "food": "Meals",
+      "price": 70
+    },
+    {
+      "id": "4",
+      "food": "Tandoori",
+      "price": 160
+    },
+    {
+      "id": "5",
+      "food": "Cool Drinks",
+      "price": 110
+    }
+  ],
+  "laundary": [
+    {
+      "id": "1",
+      "cloth": "Shirt",
+      "price": 15
+    },
+    {
+      "id": "2",
+      "cloth": "Pants",
+      "price": 20
+    },
+    {
+      "id": "3",
+      "cloth": "Jeans",
+      "price": 30
+    },
+    {
+      "id": "4",
+      "cloth": "Bed Cloth",
+      "price": 50
+    },
+    {
+      "id": "5",
+      "cloth": "Gloes",
+      "price": 20
+    }
+  ],
+  "userGame": [
+    {
+      "id": "1",
+      "user": "Vicky",
+      "game": "Golf",
+      "amount": 500
+    },
+    {
+      "id": "2",
+      "user": "Vicky",
+      "game": "Pool Ball",
+      "amount": 300
+    },
+    {
+      "id": "3",
+      "user": "Vicky",
+      "game": "Tennies",
+      "amount": 200
+    },
+    {
+      "id": "4",
+      "user": "Vicky",
+      "game": "Indoor Games",
+      "amount": 250
+    },
+    {
+      "id": "5",
+      "user": "Vicky",
+      "game": "Video Games",
+      "amount": 100
+    }
+  ],
+  "userRestaurant": [],
+  "userLaundary": [
+    {
+      "id": "1",
+      "user": "Vicky",
+      "cloth": "Shirt",
+      "amount": 15
+    },
+    {
+      "id": "2",
+      "user": "Vicky",
+      "cloth": "Pants",
+      "amount": 20
+    },
+    {
+      "id": "3",
+      "user": "Vicky",
+      "cloth": "Jeans",
+      "amount": 30
+    },
+    {
+      "id": "4",
+      "user": "Vicky",
+      "cloth": "Bed Cloth",
+      "amount": 50
+    },
+    {
+      "id": "5",
+      "user": "Vicky",
+      "cloth": "Gloes",
+      "amount": 20
+    }
+  ]
+}
