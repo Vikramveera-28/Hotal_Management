@@ -15,8 +15,9 @@ import PoolBallImage from '../../../Images/Poolball.jpg';
 import TenniesImage from '../../../Images/Tennies.jpg';
 import IndoorImage from '../../../Images/indoor.jpg';
 import VideoImage from '../../../Images/videoGame.jpg';
+import { Link } from "react-router-dom";
 
-const Home = ({ userLoggedData, games, restaurant, laundary, deleteRestaurantItem, deleteLaundaryItem, deleteGameItem, userLoggedError, loadingUserLogged }) => {
+const Home = ({ userLoggedData, games, restaurant, laundary, gameError, restaurantError, laundaryError, deleteRestaurantItem, deleteLaundaryItem, deleteGameItem, userLoggedError, loadingUserLogged }) => {
     const userName = userLoggedData[0]?.userName;
     const userRestaurantList = restaurant.filter(item => item.user === userName);
     const userLaundaryList = laundary.filter(item => item.user === userName);
@@ -70,7 +71,7 @@ const Home = ({ userLoggedData, games, restaurant, laundary, deleteRestaurantIte
                                 </tr>
                             </thead>
                             <tbody>
-                                {userRestaurantList.map((item, index) => (
+                                {!restaurantError && userRestaurantList.map((item, index) => (
                                     <tr key={index}>
                                         <td>{index + 1}</td>
                                         <td>{item.food}</td>
@@ -81,7 +82,8 @@ const Home = ({ userLoggedData, games, restaurant, laundary, deleteRestaurantIte
                                         <td><button className="btn btn-danger w-100" onClick={() => deleteRestaurantItem(item.id, item.food)}>Delete</button></td>
                                     </tr>
                                 ))}
-                                {userLoggedError && <tr><td colSpan="5" className="text-center text-danger h4">{`${userLoggedError}`}</td></tr>}
+                                {restaurantError && <tr><td colSpan="5" className="text-center text-danger h4">{`Error: ${restaurantError}`}</td></tr>}
+                                {userRestaurantList.length===0 && <tr><td colSpan="5" className="text-center text-danger h4">Food cart is empty, Go to <Link to={'/user/restaurant'}>Restaurant</Link></td></tr>}
                             </tbody>
                         </table>
                     </div>
@@ -100,7 +102,7 @@ const Home = ({ userLoggedData, games, restaurant, laundary, deleteRestaurantIte
                                 </tr>
                             </thead>
                             <tbody>
-                                {userLaundaryList.map((item, index) => (
+                                {!laundaryError && userLaundaryList.map((item, index) => (
                                     <tr key={index}>
                                         <td>{index + 1}</td>
                                         <td>{item.cloth}</td>
@@ -111,7 +113,8 @@ const Home = ({ userLoggedData, games, restaurant, laundary, deleteRestaurantIte
                                         <td><button className="btn btn-danger w-100" onClick={() => deleteLaundaryItem(item.id, item.cloth)}>Delete</button></td>
                                     </tr>
                                 ))}
-                                {/* {gameError && <tr><td colSpan="5" className="text-center text-danger h4">{`Error: ${gameError}`}</td></tr>} */}
+                                {laundaryError && <tr><td colSpan="5" className="text-center text-danger h4">{`Error: ${laundaryError}`}</td></tr>}
+                                {userLaundaryList.length===0 && <tr><td colSpan="5" className="text-center text-danger h4">Cloth cart is empty, Go to <Link to={'/user/laundary'}>Laundary</Link></td></tr>}
                             </tbody>
                         </table>
                     </div>
@@ -130,7 +133,7 @@ const Home = ({ userLoggedData, games, restaurant, laundary, deleteRestaurantIte
                                 </tr>
                             </thead>
                             <tbody>
-                                {userGameList.map((item, index) => (
+                                {!gameError && userGameList.map((item, index) => (
                                     <tr key={index}>
                                         <td>{index + 1}</td>
                                         <td>{item.game}</td>
@@ -141,7 +144,8 @@ const Home = ({ userLoggedData, games, restaurant, laundary, deleteRestaurantIte
                                         <td><button className="btn btn-danger w-100" onClick={() => deleteGameItem(item.id, item.game)}>Delete</button></td>
                                     </tr>
                                 ))}
-                                {/* {gameError && <tr><td colSpan="5" className="text-center text-danger h4">{`Error: ${gameError}`}</td></tr>} */}
+                                {gameError && <tr><td colSpan="5" className="text-center text-danger h4">{`Error: ${gameError}`}</td></tr>}
+                                {userGameList.length===0 && <tr><td colSpan="5" className="text-center text-danger h4">Game cart is empty, Go to <Link to={'/user/game'}>Games</Link></td></tr>}
                             </tbody>
                         </table>
                     </div>

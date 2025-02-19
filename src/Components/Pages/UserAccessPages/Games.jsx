@@ -19,7 +19,7 @@ const Games = ({gameList, games, gameError}) => {
             <div className="container">
                 <h1 className="display-5 text-center text-primary mt-5">Games</h1>
                 <div className="row gy-5">
-                    {games.map((item, index) => (
+                    {!gameError && games.map((item, index) => (
                         <div key={index} className="col-12">
                             <div className="card">
                                 <div className={`row d-flex ${index%2===0 && "flex-row-reverse"}`}>

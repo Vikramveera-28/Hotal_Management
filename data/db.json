@@ -21,15 +21,15 @@
   "userLogin": [
     {
       "id": "1",
-      "userName": "Vicky",
-      "password": "Vicky2001"
+      "userName": "",
+      "password": ""
     }
   ],
   "game": [
     {
       "id": "1",
       "game": "Golf",
-      "price": 500
+      "price": "500"
     },
     {
       "id": "3",
@@ -56,12 +56,12 @@
     {
       "id": "1",
       "food": "Biriyani",
-      "price": 150
+      "price": "150"
     },
     {
       "id": "2",
       "food": "Chicken Rice",
-      "price": 110
+      "price": "100"
     },
     {
       "id": "3",
@@ -83,12 +83,12 @@
     {
       "id": "1",
       "cloth": "Shirt",
-      "price": 15
+      "price": "15"
     },
     {
       "id": "2",
       "cloth": "Pants",
-      "price": 20
+      "price": "25"
     },
     {
       "id": "3",
@@ -103,7 +103,7 @@
     {
       "id": "5",
       "cloth": "Gloes",
-      "price": 20
+      "price": "10"
     }
   ],
   "userGame": [
@@ -145,12 +145,6 @@
       "user": "Vicky",
       "cloth": "Shirt",
       "amount": 15
-    },
-    {
-      "id": "2",
-      "user": "Vicky",
-      "cloth": "Pants",
-      "amount": 20
     },
     {
       "id": "3",

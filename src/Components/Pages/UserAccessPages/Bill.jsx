@@ -90,7 +90,7 @@ const Bill = ({ userLoggedData, game, restaurant, laundary, gameError, restauran
                         })}
                     </tbody>
                     <tfoot className="table-secondary">
-                    {!restaurantError && restaurant.length===0 && <tr><td colSpan='5' className="text-center text-danger h4">{`Your food order list is Empty`}</td></tr>}
+                    {!restaurantError && userRestaurantList.length===0 && <tr><td colSpan='5' className="text-center text-danger h4">{`Your food order list is Empty`}</td></tr>}
                     {restaurantError && <tr><td colSpan='5' className="text-center text-danger h4">{`${restaurantError}`}</td></tr>}
                         <tr>
                             <td colSpan="4" className="text-end"><strong>Total:</strong></td>
@@ -125,7 +125,7 @@ const Bill = ({ userLoggedData, game, restaurant, laundary, gameError, restauran
                         })}
                     </tbody>
                     <tfoot className="table-secondary">
-                    {!laundaryError && laundary.length===0 && <tr><td colSpan='5' className="text-center text-danger h4">{`Your cloth cleaning list is Empty`}</td></tr>}
+                    {!laundaryError && userLaundaryList.length===0 && <tr><td colSpan='5' className="text-center text-danger h4">{`Your cloth cleaning list is Empty`}</td></tr>}
                     {laundaryError && <tr><td colSpan='5' className="text-center text-danger h4">{`${laundaryError}`}</td></tr>}
                         <tr>
                             <td colSpan="4" className="text-end"><strong>Total:</strong></td>
@@ -160,7 +160,7 @@ const Bill = ({ userLoggedData, game, restaurant, laundary, gameError, restauran
                         })}
                     </tbody>
                     <tfoot className="table-secondary">
-                    {!gameError && game.length===0 && <tr><td colSpan='5' className="text-center text-danger h4">{`Your Game timing list is Empty`}</td></tr>}
+                    {!gameError && userGameList.length===0 && <tr><td colSpan='5' className="text-center text-danger h4">{`Your Game timing list is Empty`}</td></tr>}
                     {gameError && <tr><td colSpan='5' className="text-center text-danger h4">{`${gameError}`}</td></tr>}
                         <tr>
                             <td colSpan="4" className="text-end"><strong>Total:</strong></td>
@@ -186,17 +186,17 @@ const Bill = ({ userLoggedData, game, restaurant, laundary, gameError, restauran
                         <tr>
                             <td>2</td>
                             <td>Food</td>
-                            <td>{totalRestaurantCost}</td>
+                            <td>{totalRestaurantCost>0 ? totalRestaurantCost:<span className="fw-bold text-danger">--</span>}</td>
                         </tr>
                         <tr>
                             <td>3</td>
                             <td>Laundary</td>
-                            <td>{totalLaundaryCost}</td>
+                            <td>{totalLaundaryCost>0?totalLaundaryCost:<span className="fw-bold text-danger">--</span>}</td>
                         </tr>
                         <tr>
                             <td>4</td>
                             <td>Games</td>
-                            <td>{totalGameCost}</td>
+                            <td>{totalGameCost>0?totalGameCost:<span className="fw-bold text-danger">--</span>}</td>
                         </tr>
                         <tr>
                             <td>5</td>

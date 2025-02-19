@@ -216,6 +216,9 @@ function App() {
                 games={userGames}
                 restaurant={userRestaurant}
                 laundary={userLaundary}
+                gameError={userGameError}
+                restaurantError={userRestaurantError}
+                laundaryError={userLaundaryError}
                 loadingUserLogged={loadingUserLogged}
                 deleteRestaurantItem={deleteRestaurantItem}
                 deleteLaundaryItem={deleteLaundaryItem}

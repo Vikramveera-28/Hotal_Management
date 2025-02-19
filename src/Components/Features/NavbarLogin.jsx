@@ -32,7 +32,7 @@ export const NavbarLogin = ({navBar, logout}) => {
                     )}
                     {navBar==='adminNavbar' && (
                         <>
-                            <li href="#home"><Link className="nav-link active" to={'/admin/home'}>Home</Link></li>
+                            <li href="#home"><Link className="nav-link active" to={'/admin'}>Home</Link></li>
                             <li href="#home"><Link className="nav-link active" to={'/admin/user'}>User</Link></li>
                             <li href="#home"><Link className="nav-link active" to={'/admin/game'}>Games</Link></li>
                             <li href="#home"><Link className="nav-link active" to={'/admin/restaurant'}>Restaurant</Link></li>
