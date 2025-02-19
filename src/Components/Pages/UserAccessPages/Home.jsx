@@ -78,7 +78,7 @@ const Home = ({ userLoggedData, games, restaurant, laundary, deleteRestaurantIte
                                             <img width="60px" alt="restaurant-item" src={getImageForItem('restaurant', item.food)} />
                                         </td>
                                         <td><span className="fw-bold">{item.amount}</span></td>
-                                        <td><button className="btn btn-danger w-100" onClick={() => deleteRestaurantItem(item.id)}>Delete</button></td>
+                                        <td><button className="btn btn-danger w-100" onClick={() => deleteRestaurantItem(item.id, item.food)}>Delete</button></td>
                                     </tr>
                                 ))}
                                 {userLoggedError && <tr><td colSpan="5" className="text-center text-danger h4">{`${userLoggedError}`}</td></tr>}
@@ -108,7 +108,7 @@ const Home = ({ userLoggedData, games, restaurant, laundary, deleteRestaurantIte
                                             <img width="60px" alt="laundry-item" src={getImageForItem('laundry', item.cloth)} />
                                         </td>
                                         <td><span className="fw-bold">{item.amount}</span></td>
-                                        <td><button className="btn btn-danger w-100" onClick={() => deleteLaundaryItem(item.id)}>Delete</button></td>
+                                        <td><button className="btn btn-danger w-100" onClick={() => deleteLaundaryItem(item.id, item.cloth)}>Delete</button></td>
                                     </tr>
                                 ))}
                                 {/* {gameError && <tr><td colSpan="5" className="text-center text-danger h4">{`Error: ${gameError}`}</td></tr>} */}
@@ -138,7 +138,7 @@ const Home = ({ userLoggedData, games, restaurant, laundary, deleteRestaurantIte
                                             <img width="60px" alt="games" src={getImageForItem('games', item.game)} />
                                         </td>
                                         <td><span className="fw-bold">{item.amount}</span></td>
-                                        <td><button className="btn btn-danger w-100" onClick={() => deleteGameItem(item.id)}>Delete</button></td>
+                                        <td><button className="btn btn-danger w-100" onClick={() => deleteGameItem(item.id, item.game)}>Delete</button></td>
                                     </tr>
                                 ))}
                                 {/* {gameError && <tr><td colSpan="5" className="text-center text-danger h4">{`Error: ${gameError}`}</td></tr>} */}

@@ -1,13 +1,10 @@
 import React from 'react'
 import api from '../../../Api/apiUrl';
+import useDeleteList from '../../../Hooks/useDeleteList'
 
 const EditUser = ({user, isLoading, fetchError}) => {
-  const userDelete = async (id) => {
-    try {
-      await api.delete(`/user/${id}`)
-    } catch (err) {
-      console.log(err.message);
-    }
+  const userDelete = async (id, item) => {
+    useDeleteList('/user', id, item)
   }
   return (
     <>
@@ -28,7 +25,7 @@ const EditUser = ({user, isLoading, fetchError}) => {
                             <td className='fw-bold'>{index+1}</td>
                             <td className='fw-bold'>{item.userName}</td>
                             <td className='fw-bold'>{item.password}</td>
-                            <td className='d-flex gap-2'><button className='btn btn-danger w-100' onClick={() => userDelete(item.id)}>Delete</button></td>
+                            <td className='d-flex gap-2'><button className='btn btn-danger w-100' onClick={() => userDelete(item.id, item.userName)}>Delete</button></td>
                         </tr>
                     ))}
                         {fetchError && <tr><td colspan='4' className="text-center text-danger h4">{`Error: ${fetchError}`}</td></tr>}

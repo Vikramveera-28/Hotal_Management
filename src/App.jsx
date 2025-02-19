@@ -7,6 +7,7 @@ import api from './Api/apiUrl'
 // Custom Hooks
 import useFetch from './Hooks/useFetch'
 import useDeleteList from './Hooks/useDeleteList'
+import { useNotification } from './Hooks/useNotification'
 // Pages for Sign In Access
 const LazyLogin = React.lazy(() => import('./Components/Pages/LogInPage/Login'))
 const LazyRegister = React.lazy(() => import('./Components/Pages/LogInPage/Register'))
@@ -33,6 +34,9 @@ function App() {
   // uses for user Login
   const [userLoginName, setUserLoginName] = useState('')
   const [userLoginPassword, setUserLoginPassword] = useState('')
+  // uses for register
+  const [registerName, setRegisterName] = useState('')
+  const [registerPassword, setRegisterPassword] = useState('')
   // uses for admin Login
   const [adminName, setAdminName] = useState('')
   const [adminPassword, setAdminPassword] = useState('')
@@ -56,12 +60,12 @@ function App() {
     const Admin = admin.find(admin => admin.userName===adminName)
     if (Admin){
       if (Admin.password === adminPassword) {
-        navigate('/admin/home')
+        navigate('/admin')
       } else {
-        alert("Invalid Password")
+        useNotification("Invalid Password")
       }
     } else{
-      alert("Invalid UserId")
+      useNotification("Invalid UserId")
     }
   }
 
@@ -79,17 +83,36 @@ function App() {
               setUserLoggedData(response.data)
               setUserLoginName('')
               setUserLoginPassword('')
+              navigate('/user')
             } catch (err) {
               console.log(err.message);
             }
           }
           fetchLogin()
-          navigate('/user')
-      } else {
-        alert("Invalid Password");
+          useNotification('Successfully Login')
+        } else {
+          useNotification("Invalid Password")
       }
     }
     !User && alert("Invalid User");
+  }
+  const userRegister = async() => {
+    const registation = async() => {
+      try {
+        const Id = user.length ? Number(user[user.length-1].id)+1 : 1;
+        const User = registerName;
+        const Password = registerPassword;
+        const newUser = {id:String(Id), userName:User, password:Password}
+        const response = await api.post('/user', newUser)
+        const newList = [...user, response.data]
+        setUser(newList)
+        navigate('/')
+        useNotification("Successfully Register")
+      } catch (err) {
+        console.log(err.message);
+      }
+    }
+    registation()
   }
     // Add Laundary
     const laundaryList = async (cloth, amount) => {
@@ -101,7 +124,7 @@ function App() {
       const response = await api.post('/userLaundary', newObj);
       const newLaundary = [...userLaundary, response.data];
       setUserLaundary(newLaundary)
-      // notificationFunc("Laundary", cloth);
+      useNotification(`Now you can clear your ${Cloth} cloth`);
     }
     
     // Add Games
@@ -114,7 +137,7 @@ function App() {
       const response = await api.post('/userGame', newObj);
       const newGames = [...userGames, response.data];
       setUserGames(newGames)
-      // notificationFunc("Laundary", game);
+      useNotification(`Now you can play ${Game} game.`);
     }
 
     // Add Restaurant
@@ -127,16 +150,16 @@ function App() {
       const response = await api.post('/userRestaurant', newObj);
       const newRestaurant = [...userRestaurant, response.data];
       setUserRestaurant(newRestaurant)
-      // notificationFunc("Laundary", food);
+      useNotification(`Your ${Food} order is placed`);
     }
-    const deleteRestaurantItem = async(id) => {
-      useDeleteList('/userRestaurant', id)
+    const deleteRestaurantItem = async(id, item) => {
+      useDeleteList('/userRestaurant', id, item)
     } 
-    const deleteLaundaryItem = async(id) => {
-      useDeleteList('/userLaundary', id)
+    const deleteLaundaryItem = async(id, item) => {
+      useDeleteList('/userLaundary', id, item)
     } 
-    const deleteGameItem = async(id) => {
-      useDeleteList('/userGame', id)
+    const deleteGameItem = async(id, item) => {
+      useDeleteList('/userGame', id, item)
     }
     const logout = async() => {
       try {
@@ -166,7 +189,23 @@ function App() {
                 userLogin={userLogin}
                 />
             }/>
-            <Route path='register' element={<LazyRegister />} />
+            <Route path='register' element={
+              <LazyRegister
+                registerName={registerName}
+                setRegisterName={setRegisterName}
+                registerPassword={registerPassword}
+                setRegisterPassword={setRegisterPassword}
+                userRegister={userRegister}/>
+            } />
+            <Route path='adminLogin' element={
+              <LazyAdmin
+                adminName={adminName}
+                setAdminName={setAdminName}
+                adminPassword={adminPassword}
+                setAdminPassword={setAdminPassword}
+                adminLogin={adminLogin}/>
+              }/>
+
           </Route>
 
           <Route path='user' element={<NavbarLogin  navBar="userNavbar" logout={logout}/>}>
@@ -189,15 +228,7 @@ function App() {
           </Route>
 
           <Route path='admin' element={<NavbarLogin navBar="adminNavbar"/>}>
-            <Route index element={
-              <LazyAdmin
-                adminName={adminName}
-                setAdminName={setAdminName}
-                adminPassword={adminPassword}
-                setAdminPassword={setAdminPassword}
-                adminLogin={adminLogin}/>
-              }/>
-              <Route path='home' element={<LazyAdminHome admin={admin}/>} />
+              <Route index element={<LazyAdminHome admin={admin}/>} />
               <Route path='game' element={<LazyAdminGame game={games} />} />
               <Route path='restaurant' element={<LazyAdminRestaurant restaurant={restaurant}/>} />
               <Route path='laundary' element={<LazyAdminLaundary laundary={laundary}/>} />
