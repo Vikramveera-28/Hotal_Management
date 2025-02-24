@@ -40,7 +40,7 @@ const EditLaundary = ({laundary, fetchError}) => {
                             <td className='fw-bold'>{item.cloth}</td>
                             <td className='fw-bold'>{item.price}</td>
                             <td className='d-flex gap-2'>
-                                <input type="number" className='form-control' id={`price${item.id}`} />
+                                <input type="number" className='form-control' id={`price${item.id}`} placeholder='Enter the price to change'/>
                                 <button type="submit" className='btn btn-info' onClick={() => changePrice(item.id, item.cloth)}>Change</button>
                             </td>
                         </tr>
