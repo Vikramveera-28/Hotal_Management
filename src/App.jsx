@@ -41,9 +41,9 @@ function App() {
   const [adminName, setAdminName] = useState('')
   const [adminPassword, setAdminPassword] = useState('')
   
-  // Fetching User Data
-  const [admin, setAdmin, adminError] = useFetch("/admin")
   // Fetching Admin Data
+  const [admin, setAdmin, adminError] = useFetch("/admin")
+  // Fetching User Data
   const [user, setUser, userError] = useFetch("/user")
   const [userLoggedData, setUserLoggedData, userLoggedError, loadingUserLogged] = useFetch("/userLogin")
   // Fetching for Hotal Features
@@ -182,6 +182,7 @@ function App() {
             <Route index element={
               <LazyLogin
                 user={user}
+                userError={userError}
                 userLoginName={userLoginName}
                 setUserLoginName={setUserLoginName}
                 userLoginPassword={userLoginPassword}
@@ -191,6 +192,7 @@ function App() {
             }/>
             <Route path='register' element={
               <LazyRegister
+                userError={userError}
                 registerName={registerName}
                 setRegisterName={setRegisterName}
                 registerPassword={registerPassword}
@@ -199,6 +201,7 @@ function App() {
             } />
             <Route path='adminLogin' element={
               <LazyAdmin
+                adminError={adminError}
                 adminName={adminName}
                 setAdminName={setAdminName}
                 adminPassword={adminPassword}
